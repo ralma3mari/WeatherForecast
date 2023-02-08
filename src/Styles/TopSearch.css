@@ -1,57 +1,58 @@
 .topSearch {
-    background-color: rgb(255, 174, 160);
-    padding: 10px 20px 30px 20px;
-    border-radius: 3px;
+  background-color: rgb(255, 174, 160);
+  padding: 10px 20px 30px 20px;
+  border-radius: 3px;
 }
 
 .topSearch h1 {
-    text-align: center;
-    color: white;
+  text-align: center;
+  color: white;
 }
 
 .topSearch .first {
-    background-color: gold;
-    border-radius: 3px;
+  background-color: gold;
+  border-radius: 3px;
 }
 
 .topSearch .second {
-    background-color: silver;
-    border-radius: 3px;
+  background-color: silver;
+  border-radius: 3px;
 }
 
 .topSearch .third {
-    background-color: #cd7f32;
-    border-radius: 3px;
+  background-color: #cd7f32;
+  border-radius: 3px;
 }
 
 .topSearch .wrapper3 {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .wrapper3 > div {
-    height: 70px;
+  height: 70px;
 }
 
 .wrapper4 {
-    display: flex;
-    gap: 20px;
-    height: 100%;
-    align-items: center;
+  display: flex;
+  gap: 20px;
+  height: 100%;
+  align-items: center;
 }
 
 .wrapper4 > .rank {
-    color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    font-size: xx-large;
-    font-weight: bold;
-    padding-left: 10px;
-    width: 50px;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-size: xx-large;
+  font-weight: bold;
+  padding-left: 10px;
+  width: 50px;
 }
 
 .wrapper4 > .city {
-    font-weight: bold;
-    font-size: larger;
-    padding: 10px;
+  font-weight: bold;
+  font-size: larger;
+  padding: 10px;
 }
