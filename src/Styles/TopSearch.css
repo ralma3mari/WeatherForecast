@@ -1,6 +1,7 @@
 .topSearch {
     background-color: rgb(255, 174, 160);
     padding: 10px 20px 30px 20px;
+    border-radius: 3px;
 }
 
 .topSearch h1 {
@@ -52,4 +53,5 @@
 .wrapper4 > .city {
     font-weight: bold;
     font-size: larger;
+    padding: 10px;
 }

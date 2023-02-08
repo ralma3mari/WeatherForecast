@@ -1,7 +1,9 @@
 import React from "react";
+import SearchBar from "../Components/SearchBar";
 import TopSearch from "../Components/TopSearch";
 import WeatherNow from "../Components/WeatherNow";
 import HomePage from "../Data/Images/HomePage.gif"
+import "../Styles/Home.css"
 
 
 function Home(){
@@ -11,6 +13,7 @@ function Home(){
                 <WeatherNow />
                 <div className="wrapper2">
                     <TopSearch />
+                    <SearchBar />
                 </div>
         </div>
     );
