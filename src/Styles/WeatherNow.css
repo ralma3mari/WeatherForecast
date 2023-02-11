@@ -5,22 +5,23 @@
   padding: 10px;
 }
 
-.weatherNow .wrapper {
-  display: grid;
-  grid-template-columns: 80% 10%;
-  gap: 10px;
-  grid-auto-rows: minmax(40px, auto);
-  align-content: center;
-  height: 40px;
+.wrapper {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-.col1 {
-  grid-column: 1;
-  grid-row: 1;
+
+.currentLocation {
+  font-size: x-large;
+  font-weight: bold;
   padding-left: 30px;
 }
-.col2 {
-  text-align: right;
-  grid-column: 2;
-  grid-row: 1;
+
+.currentTemp {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.currentTempIcon {
+  width: 80px;
 }

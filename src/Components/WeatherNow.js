@@ -43,23 +43,15 @@ const WeatherNow = () => {
         <div className="weatherNow">
           Your Location:
           <div className="wrapper">
-            <div className="col1">
-              <h2>{data.name}</h2>
-            </div>
+            <span className="currentLocation">{data.name}</span>
 
-            <div className="col2">
-              <div className="wrapper">
-                <div className="col1">
-                  <h3>{data.main.temp} °C</h3>
-                </div>
-                <div className="col2">
-                  <img
-                    src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-                    alt="weather icon"
-                    style={{ width: "80px" }}
-                  />
-                </div>
-              </div>
+            <div className="wrapper">
+              <span className="currentTemp">{data.main.temp} °C</span>
+
+              <img className="currentTempIcon"
+                src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+                alt="weather icon"
+              />
             </div>
           </div>
         </div>

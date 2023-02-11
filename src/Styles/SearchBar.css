@@ -1,5 +1,5 @@
 .searchBar {
-  background-color: rgba(210, 210, 210, 0.8);
+  background-color: rgb(210, 210, 210);
   border-radius: 3px;
   padding: 30px;
 }
@@ -9,15 +9,29 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
+  border: 3px solid black;
+  padding: 30px 20px 20px 30px;
+  border-radius: 100px;
 }
 
-.searchBar > .full > .firstRow > img {
+.searchBar > .full > .firstRow > button > .searchIcon {
   width: 50px;
+  fill: rgb(81, 81, 81);
+  height: auto;
 }
 
-.searchBar > .full > .firstRow > input {
-  font-size: 30px;
-  width: 100%;
+.searchBar > .full > .firstRow > button > .searchIcon:hover {
+  fill: rgb(22, 22, 22);
+}
+
+.searchBar > .full > .firstRow > button {
+  background-color: transparent;
+  border: 0;
+}
+
+.searchBar > .full > .firstRow > .inputHolder > input {
+  font-size: x-large;
+  max-width: 240px;
 }
 
 .searchBar > .full {
@@ -29,8 +43,56 @@
 }
 
 .searchBar > .full > input {
-  background: black;
+  background: rgb(51, 51, 51);
   color: white;
   padding: 10px;
-  font-size: 15px;
+  font-size: large;
+  border:3px solid black;
+  border-radius: 30px;
+}
+
+.searchBar > .full > input:hover {
+  background: rgb(81, 81, 81);
+  color: white
+}
+
+.inputHolder {
+  position:  relative;
+  margin-bottom: 1.25em;
+   
+}
+.inputHolder > input{
+  border: 0;
+  border-bottom: 3px solid rgb(149, 149, 149);
+  background-color: transparent;
+  outline: none;
+}
+
+.inputHolder > input:focus {
+  border-bottom: 3px solid rgb(81, 81, 81);
+}
+.inputHolder > input::placeholder{
+ color: transparent;
+}
+.inputHolder > label{
+ position: absolute;
+ top: 0;
+ left: 0;
+ font-size: x-large;
+ display: flex;
+ align-items: center;
+ cursor: text;
+ transition: .3s ease-in-out;
+}
+.inputHolder > input:focus + label,
+.inputHolder > input:not(:placeholder-shown) + label {
+font-size: larger;
+top: -25px;
+pointer-events:none;
+}
+
+.searchBar > .full > .errorMsg {
+  color: red;
+  font-weight: bold;
+  font-size: large;
 }
