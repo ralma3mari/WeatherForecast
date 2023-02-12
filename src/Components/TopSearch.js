@@ -3,13 +3,17 @@ import "../Styles/TopSearch.css";
 
 const TopSearch = () => {
   const [highScores, setHighScores] = useState([]);
-
+  const [error, setError] = useState(false);
     useEffect(() => {
-        fetch(process.env.REACT_APP_REPLIT_API)
+        fetch(process.env.REACT_APP_MONGODB_API + "/top3")
             .then(response => response.json())
-            .then(data => setHighScores(data.data));
+            .then(data => setHighScores(data.data))
+            .catch(e => setError(true));
     }, []);
 
+  if(error)
+    return (<></>)
+  else
   return (
     <div className="topSearch">
      { highScores.length>0 ? 
