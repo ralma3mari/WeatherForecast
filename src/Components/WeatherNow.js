@@ -1,25 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../Styles/WeatherNow.css";
-import { useGetGeoLocation, useGetLocationNameFromCoords, useGetWeatherFromCoords } from "../Utility/LocationHelper";
+import { getLocationNameFromCoords, getWeatherFromCoords } from "../Utility/LocationHelper";
 
-const WeatherNow = () => {
-  const coords = useGetGeoLocation();
-  const weather = useGetWeatherFromCoords(coords);
-  const name = useGetLocationNameFromCoords(coords);
+const WeatherNow = ({myLocation}) => {
+  const[weather,setWeather] = useState({
+    error:true,
+    data:{}
+  });
+  const[name,setName] = useState({
+    error:false,
+    city:"",
+    country:""
+  });
 
+  useEffect(()=>{
+    const fetchData = async () => {
+      setWeather(await getWeatherFromCoords(myLocation));
+      setName(await getLocationNameFromCoords(myLocation));
+    }
+    if(myLocation){
+      fetchData();
+    }
+  },[myLocation])
   return (
     <>
-      {JSON.stringify(weather) !== "{}" ? (
+      {!weather.error ? (
         <div className="weatherNow">
           Your Location:
           <div className="wrapper">
             <span className="currentLocation">{name.city}</span>
 
             <div className="wrapper">
-              <span className="currentTemp">{weather.main.temp} °C</span>
+              <span className="currentTemp">{weather.data.main.temp} °C</span>
 
               <img className="currentTempIcon"
-                src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                src={`http://openweathermap.org/img/wn/${weather.data.weather[0].icon}@2x.png`}
                 alt="weather icon"
               />
             </div>

@@ -4,8 +4,10 @@ import TopSearch from "../Components/TopSearch";
 import WeatherNow from "../Components/WeatherNow";
 import HomePage from "../Data/Images/HomePage.gif";
 import "../Styles/Home.css";
+import { useGetGeoLocation } from "../Utility/LocationHelper";
 
 function Home() {
+  const coords = useGetGeoLocation();
   return (
     <div
       className="home"
@@ -15,10 +17,10 @@ function Home() {
         }) center center/ cover no-repeat`,
       }}
     >
-      <WeatherNow />
+      <WeatherNow myLocation={coords}/>
       <div className="wrapper2">
         <TopSearch />
-        <SearchBar />
+        <SearchBar myLocation={coords}/>
       </div>
     </div>
   );

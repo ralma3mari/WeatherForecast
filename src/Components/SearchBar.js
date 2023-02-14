@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../Styles/SearchBar.css";
 import { ReactComponent as Logo } from '../Data/Images/SearchIcon.svg';
-import { fetchProperCity } from "../Utility/LocationHelper";
+import { fetchCoordsByName, getWeatherFromCoords } from "../Utility/LocationHelper";
 
-const SearchBar = () => {
+const SearchBar = ({myLocation}) => {
   const [country,setCountry] = useState("");
   const [city,setCity] = useState("");
   const [result,setResult] = useState({
@@ -19,62 +19,15 @@ const SearchBar = () => {
     },
   });
 
-  const fetchCoordsByName= async () => {
-    const addressAPI = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&addressdetails=1&accept-language=en&city=${city}&country=${country}`;
-    try{
-      const result = await fetch(addressAPI);
-      if(result.ok){
-        const data = await result.json();
-        if(data.length === 0){
-          return{
-            error:true,
-            message:"Unable to fetch location",
-            coords:{
-              latitude:"",
-              longitude:""
-            },
-            fetched:{
-              city:"",
-              country:""
-            },
-          }
-        } else{
-          return{
-            error:false,
-            message:"",
-            coords:{
-              latitude:data[0].lat,
-              longitude:data[0].lon
-            },
-            fetched:{
-              city:fetchProperCity(data[0]),
-              country:data[0].address.country
-            },
-          }
-        }
-      } 
-    } catch(error){
-      console.error(error);
-      return{
-        error:true,
-        message:"Internal Error",
-        coords:{
-          latitude:"",
-          longitude:""
-        },
-        fetched:{
-          city:"",
-          country:""
-        },
-      }
-    }
-    
-  }
   const handleSubmit= async (event) => {
     event.preventDefault();
-    const fetched = await fetchCoordsByName();
-    setResult(fetched);
-    console.log(fetched);
+    const fetchedLocation = await fetchCoordsByName(city, country);
+    if(!fetchedLocation.error){
+      const weather = await getWeatherFromCoords(fetchedLocation.coords);
+      console.log(weather);
+    }
+    setResult(fetchedLocation);
+    console.log(fetchedLocation);
   }
   return (
     <div className="searchBar">
