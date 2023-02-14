@@ -13,8 +13,6 @@ function Home() {
         background: `url(${
           process.env.PUBLIC_URL + HomePage
         }) center center/ cover no-repeat`,
-        height: "100%",
-        width: "100%",
       }}
     >
       <WeatherNow />

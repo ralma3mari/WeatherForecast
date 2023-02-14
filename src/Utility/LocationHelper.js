@@ -26,6 +26,7 @@ const useGetWeatherFromCoords = (coords) => {
     useEffect(() => {
         const fetchWeather = async () => {
             const weatherNowAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&units=metric&appid=${process.env.REACT_APP_WEATHERMAP_KEY}`;
+            console.log(weatherNowAPI);
             const result = await fetch(weatherNowAPI);
             if (result.ok) {
                 const data = await result.json();

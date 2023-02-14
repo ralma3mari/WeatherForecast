@@ -2,5 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: 10%;
+  height:100%;
+}
+
+.home{
+  height: 100%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }

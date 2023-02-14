@@ -6,7 +6,12 @@ const TopSearch = () => {
   const [error, setError] = useState(false);
     useEffect(() => {
         fetch(process.env.REACT_APP_MONGODB_API + "/top3")
-            .then(response => response.json())
+        .then(response => {
+                      if (response.ok) {
+                        return response.json();
+                      }
+                      throw new Error('Something went wrong');
+                    })
             .then(data => setHighScores(data.data))
             .catch(e => setError(true));
     }, []);

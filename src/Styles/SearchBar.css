@@ -27,11 +27,13 @@
 .searchBar > .full > .firstRow > button {
   background-color: transparent;
   border: 0;
+  position: relative;
+  top:-5px;
 }
 
 .searchBar > .full > .firstRow > .inputHolder > input {
   font-size: x-large;
-  max-width: 240px;
+  max-width: 200px;
 }
 
 .searchBar > .full {
