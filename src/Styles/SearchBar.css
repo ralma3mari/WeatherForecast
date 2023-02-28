@@ -93,8 +93,3 @@ top: -25px;
 pointer-events:none;
 }
 
-.searchBar > .full > .errorMsg {
-  color: red;
-  font-weight: bold;
-  font-size: large;
-}

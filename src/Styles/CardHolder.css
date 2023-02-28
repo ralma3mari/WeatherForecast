@@ -1,0 +1,102 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .filter-section {
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  .filter-list {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .filter-group {
+    margin-bottom: 10px;
+  }
+  
+  .filter-group>label{
+      display: flex;
+      gap: 3px;
+  }
+  
+  .apply-filter-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .clear-all-btn {
+    background-color: #ec3c3c;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .const-btn {
+    background-color: #56a28d;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .item-list-section {
+    flex: 2;
+    max-width: 800px;
+    margin-left: 20px;
+  }
+  
+  .item-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .item-count {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .go-back-btn {
+    background-color: #f1f1f1;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin-left: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }

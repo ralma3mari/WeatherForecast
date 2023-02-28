@@ -1,0 +1,94 @@
+.bg{
+    background-color: red;
+    width: 100%;
+    height: 100%;
+}
+
+.displayCard{
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 13px;
+    max-width: 400px;
+}
+
+.displayCard > .name {
+    font-weight: bolder;
+    font-size: large;
+    margin-bottom: 20px;
+    margin-top: 20px;   
+    align-self: center;
+}
+.label {
+    font-size: medium;
+    font-weight: bold;
+}
+.value{
+    font-size: medium;
+}
+.row {
+    display: flex;
+    gap: 3px;
+}
+.col {
+    display: flex;
+    gap: 3px;
+    flex-direction: column;
+}
+.imageDisplay{
+    width: inherit;
+    border-radius: 3px;
+}
+.kindMapping{
+    display: flex;
+    flex-direction: row;
+    gap:3px;
+    font-size: x-small;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.kind{
+    background-color: rgba(209, 209, 209, 0.652);
+    border-radius: 40px;
+    border:1px solid rgb(182, 182, 182);
+    padding: 4px;
+}
+.address{
+    display: flex;
+    flex-direction: column;
+}
+.address-label{
+    font-size: medium;
+    font-weight: bold;
+}
+.address-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-left: 10px;
+}
+.address-key {
+  font-weight: 600;
+  font-size: small;
+  padding: 4px;
+  text-align: left;
+  vertical-align: top;
+  width: 30%;
+  white-space: nowrap;
+}
+
+.address-value {
+  font-size: small;
+  padding: 4px;
+  text-align: left;
+  vertical-align: top;
+  width: 70%;
+  white-space: nowrap;
+}
+p{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

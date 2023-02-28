@@ -23,7 +23,7 @@ const TopSearch = () => {
     <div className="topSearch">
      { highScores.length>0 ? 
       <>
-        <h1>Top Three Visited Cities</h1>
+        <h1>Top Three Searched Cities</h1>
         <div className="wrapper3">
           {highScores[0] && (
             <div className="first">

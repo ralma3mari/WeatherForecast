@@ -1,4 +1,5 @@
 import { useGeolocated } from "react-geolocated";
+import mapping from "../Data/Jsons/Mapping.json";
 
 const useGetGeoLocation = () => {
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
@@ -21,9 +22,12 @@ const useGetGeoLocation = () => {
 };
 
 const getWeatherFromCoords = async (coords) => {
-  const weatherNowAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&units=metric&appid=${process.env.REACT_APP_WEATHERMAP_KEY}`;
-  console.log(weatherNowAPI);
-  const result = await fetch(weatherNowAPI);
+  const weatherNowAPI = new URL('https://api.openweathermap.org/data/2.5/weather');
+  weatherNowAPI.searchParams.append('lat', coords.latitude);
+  weatherNowAPI.searchParams.append('lon', coords.longitude);
+  weatherNowAPI.searchParams.append('units', 'metric');
+  weatherNowAPI.searchParams.append('appid', process.env.REACT_APP_WEATHERMAP_KEY);
+  const result = await fetch(weatherNowAPI)
   if (result.ok) {
     const data = await result.json();
     return {
@@ -55,7 +59,11 @@ const fetchProperCity = (data) => {
   return city;
 };
 const getLocationNameFromCoords = async (coords) => {
-  const addressAPI = `https://nominatim.openstreetmap.org/reverse?lat=${coords.latitude}&lon=${coords.longitude}&format=jsonv2&accept-language=en`;
+  const addressAPI = new URL('https://nominatim.openstreetmap.org/reverse');
+  addressAPI.searchParams.append('lat', coords.latitude);
+  addressAPI.searchParams.append('lon', coords.longitude);
+  addressAPI.searchParams.append('format', 'jsonv2');
+  addressAPI.searchParams.append('accept-language', 'en');
   const result = await fetch(addressAPI);
   if (result.ok) {
     const data = await result.json();
@@ -81,7 +89,13 @@ const getLocationNameFromCoords = async (coords) => {
   }
 };
 const fetchCoordsByName= async (city, country) => {
-    const addressAPI = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&addressdetails=1&accept-language=en&city=${city}&country=${country}`;
+  const addressAPI = new URL('https://nominatim.openstreetmap.org/search');
+  addressAPI.searchParams.append('format', 'jsonv2');
+  addressAPI.searchParams.append('limit', '1');
+  addressAPI.searchParams.append('addressdetails', '1');
+  addressAPI.searchParams.append('accept-language', 'en');
+  addressAPI.searchParams.append('city', city);
+  addressAPI.searchParams.append('country', country);
     try{
       const result = await fetch(addressAPI);
       if(result.ok){
@@ -131,10 +145,40 @@ const fetchCoordsByName= async (city, country) => {
     }
     
   }
+const getPlacesBasedOnWeather = async (coord,icon)=>{
+    const radius = 5000; // in meters
+    const openTripAPI = new URL('https://api.opentripmap.com/0.1/en/places/radius');
+    openTripAPI.searchParams.append('radius', radius);
+    openTripAPI.searchParams.append('lon', coord.longitude);
+    openTripAPI.searchParams.append('lat', coord.latitude);
+    openTripAPI.searchParams.append('kinds', mapping[icon].join(','));
+    openTripAPI.searchParams.append('apikey', process.env.REACT_APP_OPENTRIP_KEY);
+    const result = await fetch(openTripAPI)
+    if(result.ok){
+      const data = await result.json();
+      if(data.features.length === 0){
+        return {
+          error:true,
+          message:"Cannot find any places for destination"
+        }
+      }
+      return {
+        error:false,
+        data:data.features,
+        mapping:mapping[icon]
+      }
+    } else {
+      return {
+        error:true,
+        message:"Error Fetching Recommended Places"
+      }
+    }
+  }
 export {
   useGetGeoLocation,
   getWeatherFromCoords,
   getLocationNameFromCoords,
   fetchProperCity,
-  fetchCoordsByName
+  fetchCoordsByName,
+  getPlacesBasedOnWeather
 };
