@@ -14,7 +14,7 @@ const SearchBar = ({myLocation}) => {
     message:""
   });
   const navigate = useNavigate();
-  const fetchPlaces = async (coord, fetched) => {
+  const fetchPlaces = async (coord, fetched, isButton) => {
     const weather = await getWeatherFromCoords(coord);
     if(weather.data.weather[0].icon){
       const places = await getPlacesBasedOnWeather(coord,weather.data.weather[0].icon);
@@ -43,7 +43,7 @@ const SearchBar = ({myLocation}) => {
                 toDisplay: false,
                 message: ""
               })
-              navigate('/data', { state: { places: places.data, mapping: places.mapping, location: fetched, weather: weather.data } });
+              navigate('/data', { state: { places: places.data, mapping: places.mapping, location: fetched, weather: weather.data, myLocation:isButton } });
             }, 1500)
         } catch (e){
           console.error(e);
@@ -67,9 +67,8 @@ const SearchBar = ({myLocation}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const fetchedLocation = await fetchCoordsByName(city, country);
-    console.log(fetchedLocation);
     if (!fetchedLocation.error) {
-      await fetchPlaces(fetchedLocation.coords, fetchedLocation.fetched);
+      await fetchPlaces(fetchedLocation.coords, fetchedLocation.fetched, false);
     } else {
       setResult({
         error: true,
@@ -80,9 +79,8 @@ const SearchBar = ({myLocation}) => {
   }
   const handleMyLocation = async () => {
     const fetchedLocation = await getLocationNameFromCoords(myLocation);
-    console.log(fetchedLocation);
     if (!fetchedLocation.error) {
-      await fetchPlaces(myLocation, fetchedLocation);
+      await fetchPlaces(myLocation, fetchedLocation, true);
     } else {
       setResult({
         error: true,

@@ -79,7 +79,7 @@ const CardHolder = () => {
             <ErrorPage message={"Please do a search before navigating to this page"} />
         );
     }
-    const { mapping } = dataPassed;
+    const { mapping, myLocation } = dataPassed;
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
@@ -120,7 +120,7 @@ const CardHolder = () => {
                 <section className="item-list-section">
                     <div className="item-list">
                         {currentItems.map((info, index) => (
-                            <DisplayCard key={index} data={info} mapping={mapping} />
+                            <DisplayCard key={index} data={info} mapping={mapping} myLocation={myLocation} />
                         ))}
                     </div>
                     <div className="item-count">

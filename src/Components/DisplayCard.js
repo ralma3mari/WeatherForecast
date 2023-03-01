@@ -4,7 +4,7 @@ import { FaStar } from 'react-icons/fa';
 import { MdAccountBalance } from 'react-icons/md';
 import parse from 'html-react-parser';
 
-const DisplayCard = ({data,mapping}) => {
+const DisplayCard = ({data,mapping, myLocation}) => {
     const {dist,name,kinds,xid} = data.properties
     const [values,setValues] = useState({
         distance:null,
@@ -89,7 +89,7 @@ const DisplayCard = ({data,mapping}) => {
                 } else {
                     setValues((prevValues) => ({ ...prevValues, xid: null }))
                 }
-                
+
             }
         }
         fetchInfo()
@@ -137,7 +137,7 @@ const DisplayCard = ({data,mapping}) => {
                     </div>
 
                 )}
-                {values.distance && (
+                {values.distance && myLocation && (
                     <div className="row">
                         <div className="label">
                         Distance:
