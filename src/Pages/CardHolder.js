@@ -79,13 +79,17 @@ const CardHolder = () => {
             <ErrorPage message={"Please do a search before navigating to this page"} />
         );
     }
-    const { mapping, myLocation } = dataPassed;
+    const { mapping, myLocation, weatherForecast } = dataPassed;
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
     const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
-   
+    const fetchDateFromTimestamp = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+        const humanReadableDate = date.toLocaleString();
+        return humanReadableDate;
+    }
 
     return (
         <div className="col" style={{alignItems:'center',backgroundColor:'purple'}}>
@@ -133,6 +137,27 @@ const CardHolder = () => {
                         onPageChange={onPageChange}
                     />
                 </section>
+                { !weatherForecast.error && weatherForecast.data.list.length>0 && (
+                    <section className="weather-forecast-section">
+                        <h4 style={{color:"white"}}>Weather forecast in {dataPassed.location.city}, {dataPassed.location.country}</h4>
+                        {weatherForecast.data.list.map((key,index)=>{
+                            if(index%4===0)
+                                return(
+                                    <div key={index} className="weather-forecast-item">
+                                        {fetchDateFromTimestamp(key.dt)} 
+                                        <img
+                                            src={`http://openweathermap.org/img/wn/${key.weather[0].icon}@2x.png`}
+                                            alt="weather icon"
+                                            width={50}
+                                            height={50}
+                                        />
+                                        {key.main.temp}°C
+                                    </div>
+                                )
+                            else return (<></>)
+                        })}
+                    </section>
+                )}
             </div>
         </div>
 

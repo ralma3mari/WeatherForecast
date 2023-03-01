@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../Styles/SearchBar.css";
 import { ReactComponent as Logo } from '../Data/Images/SearchIcon.svg';
-import { fetchCoordsByName, getWeatherFromCoords, getPlacesBasedOnWeather, getLocationNameFromCoords } from "../Utility/LocationHelper";
+import { fetchCoordsByName, getWeatherFromCoords, getPlacesBasedOnWeather, getLocationNameFromCoords, getWeatherForecastFromCoords } from "../Utility/LocationHelper";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -16,6 +16,7 @@ const SearchBar = ({myLocation}) => {
   const navigate = useNavigate();
   const fetchPlaces = async (coord, fetched, isButton) => {
     const weather = await getWeatherFromCoords(coord);
+    const weatherForecast= await getWeatherForecastFromCoords(coord)
     if(weather.data.weather[0].icon){
       const places = await getPlacesBasedOnWeather(coord,weather.data.weather[0].icon);
       if(places.error){
@@ -43,7 +44,7 @@ const SearchBar = ({myLocation}) => {
                 toDisplay: false,
                 message: ""
               })
-              navigate('/data', { state: { places: places.data, mapping: places.mapping, location: fetched, weather: weather.data, myLocation:isButton } });
+              navigate('/data', { state: { places: places.data, mapping: places.mapping, location: fetched, weather: weather.data, myLocation:isButton, weatherForecast:weatherForecast } });
             }, 1500)
         } catch (e){
           console.error(e);

@@ -174,11 +174,32 @@ const getPlacesBasedOnWeather = async (coord,icon)=>{
       }
     }
   }
+  const getWeatherForecastFromCoords = async (coords) => {
+    const weatherForecastAPI = new URL('https://api.openweathermap.org/data/2.5/forecast');
+    weatherForecastAPI.searchParams.append('lat', coords.latitude);
+    weatherForecastAPI.searchParams.append('lon', coords.longitude);
+    weatherForecastAPI.searchParams.append('units', 'metric');
+    weatherForecastAPI.searchParams.append('appid', process.env.REACT_APP_WEATHERMAP_KEY);
+    const result = await fetch(weatherForecastAPI);
+    if (result.ok) {
+      const data = await result.json();
+      return {
+        error: false,
+        data: data
+      };
+    } else {
+      return {
+        error: true,
+        data: {}
+      };
+    }
+  }
 export {
   useGetGeoLocation,
   getWeatherFromCoords,
   getLocationNameFromCoords,
   fetchProperCity,
   fetchCoordsByName,
-  getPlacesBasedOnWeather
+  getPlacesBasedOnWeather,
+  getWeatherForecastFromCoords
 };
