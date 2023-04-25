@@ -101,6 +101,10 @@ const CardHolder = () => {
                 <section className="filter-section">
                     <div className="filter-list">
                         <h2>Filters</h2>
+                        <button className="apply-filter-btn" onClick={applyFilter}>Apply Filter</button>
+                        <button className="const-btn" onClick={selectAll}>Select All</button>
+                        <button className="clear-all-btn" onClick={clearFilter}>Clear All</button>
+                        <br/>
                         <form>
                             {Object.keys(selectedFilters).map((key) => (
                                 <div className="filter-group" key={key}>
@@ -116,9 +120,6 @@ const CardHolder = () => {
                                 </div>
                             ))}
                         </form>
-                        <button className="apply-filter-btn" onClick={applyFilter}>Apply Filter</button>
-                        <button className="const-btn" onClick={selectAll}>Select All</button>
-                        <button className="clear-all-btn" onClick={clearFilter}>Clear All</button>
                     </div>
                 </section>
                 <section className="item-list-section">
