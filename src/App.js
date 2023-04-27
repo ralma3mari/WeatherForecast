@@ -10,7 +10,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/data" element={<CardHolder />} /> 
+          <Route path="/data/:index" element={<CardHolder />} /> 
           <Route
             path="*"
             element={<ErrorPage message={"Page Doesn't Exist"} />}

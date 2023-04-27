@@ -128,7 +128,7 @@ const DisplayCard = ({data,mapping, myLocation}) => {
                                         )
                                     } else {
                                         return (
-                                            <></>
+                                            <React.Fragment key={index}></React.Fragment>
                                         )
                                     }
                                 })}

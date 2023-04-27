@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../Styles/SearchBar.css";
 import { ReactComponent as Logo } from '../Data/Images/SearchIcon.svg';
-import { fetchCoordsByName, getWeatherFromCoords, getPlacesBasedOnWeather, getLocationNameFromCoords, getWeatherForecastFromCoords } from "../Utility/LocationHelper";
+import { fetchCoordsByName, getWeatherFromCoords, getLocationNameFromCoords, getWeatherForecastFromCoords } from "../Utility/LocationHelper";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -13,56 +13,46 @@ const SearchBar = ({myLocation}) => {
     toDisplay:false,
     message:""
   });
-  const navigate = useNavigate();
-  const fetchPlaces = async (coord, fetched, isButton) => {
-    const weather = await getWeatherFromCoords(coord);
-    const weatherForecast= await getWeatherForecastFromCoords(coord)
-    if(weather.data.weather[0].icon){
-      const places = await getPlacesBasedOnWeather(coord,weather.data.weather[0].icon);
-      if(places.error){
-        setResult({
-          error:true,
-          toDisplay:true,
-          message:places.message
-        });
-      }else{
-        setResult({
-          error:false,
-          toDisplay:false,
-          message:""
-        });
-        try{
-          const res = await axios.put(process.env.REACT_APP_MONGODB_API + "/update", {country:fetched.country,city:fetched.city});
-            setResult({
-              error: false,
-              toDisplay: true,
-              message: res.data.message
-            })
-            setTimeout(() => {
-              setResult({
-                error: false,
-                toDisplay: false,
-                message: ""
-              })
-              navigate('/data', { state: { places: places.data, mapping: places.mapping, location: fetched, weather: weather.data, myLocation:isButton, weatherForecast:weatherForecast } });
-            }, 1500)
-        } catch (e){
-          console.error(e);
-          setResult({
-            error: true,
-            toDisplay: true,
-            message: e.response.data.message
-          })
-          setTimeout(() => {
-            setResult({
-              error: false,
-              toDisplay: false,
-              message: ""
-            })
-          }, 1500)
-        }
-      }
+  const navigate = useNavigate();  
+  const fetchPlaces = async (coord, fetched, isMyLocation) => {
+    const weatherNow = await getWeatherFromCoords(coord);
+    const weatherForecast = await getWeatherForecastFromCoords(coord);
+
+    const weatherToPass = { 
+      data: [weatherNow.data,...weatherForecast.data.list.filter((_, index) => index % 4 === 0)],
+      error: weatherForecast.error || weatherNow.error 
     }
+    
+    try{
+      const res = await axios.put(process.env.REACT_APP_MONGODB_API + "/update", { country: fetched.country, city: fetched.city });
+      setResult({
+        error: false,
+        toDisplay: true,
+        message: res.data.message
+      })
+      setTimeout(() => {
+        setResult({
+          error: false,
+          toDisplay: false,
+          message: ""
+        })
+        navigate('/data/0', { state: { coord: { latitude: coord.latitude, longitude: coord.longitude }, location: fetched, isMyLocation: isMyLocation, weather: weatherToPass }});
+      }, 1500)
+    } catch (e) {
+      console.error(e);
+      setResult({
+        error: true,
+        toDisplay: true,
+        message: e.response.data.message
+      })
+      setTimeout(() => {
+        setResult({
+          error: false,
+          toDisplay: false,
+          message: ""
+        })
+      }, 1500)
+    } 
   }
 
   const handleSubmit = async (event) => {
