@@ -110,7 +110,7 @@ const CardHolder = () => {
     }
 
     return (
-        <div className="col" style={{alignItems:'center',backgroundColor:'purple',height:"100%",overflow:"auto"}}>
+        <div className="col" style={{alignItems:'center',backgroundColor:'grey',height:"100%",overflow:"auto"}}>
 
             {isReady ? (<>
                 <div className="row" style={{gap:'20px'}}>
@@ -150,6 +150,7 @@ const CardHolder = () => {
                         </div>
                         <div className="item-count">
                             Total: {filteredData.length}
+                            <hr></hr>
                         </div>
                         <Pagination
                             currentPage={currentPage}
